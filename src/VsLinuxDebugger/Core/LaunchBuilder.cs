@@ -58,7 +58,7 @@ namespace VsLinuxDebugger.Core
     public string RemoteDeployAssemblyFilePath => LinuxPath.Combine(RemoteDeployProjectFolder, $"{AssemblyName}.dll");
 
     /// <summary>Folder of our remote assembly. (i.e. `/home/USER/VLSDbg/Proj`)</summary>
-    public string RemoteDeployProjectFolder => LinuxPath.Combine(_opts.RemoteDeployBasePath, ProjectName);
+    public string RemoteDeployProjectFolder => _opts.RemoteDebugAppendProjName ? LinuxPath.Combine(_opts.RemoteDeployBasePath, ProjectName) : _opts.RemoteDeployBasePath;
 
     public string RemoteDotNetPath => _opts.RemoteDotNetPath;
 

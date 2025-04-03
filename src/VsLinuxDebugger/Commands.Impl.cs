@@ -173,6 +173,7 @@ namespace VsLinuxDebugger
         RemoteDebugDisplayGui = VsixPackage.VsixOptions.RemoteDebugDisplayGui,
         RemoteDebugDisplayNumber = VsixPackage.VsixOptions.RemoteDebugDisplayNumber,
         RemoteDeployBasePath = VsixPackage.VsixOptions.RemoteDeployBasePath,
+        RemoteDebugAppendProjName = VsixPackage.VsixOptions.RemoteDebugAppendProjName,
         RemoteDotNetPath = VsixPackage.VsixOptions.RemoteDotNetPath,
         RemoteVsDbgBasePath = VsixPackage.VsixOptions.RemoteVsDbgRootPath,
 
