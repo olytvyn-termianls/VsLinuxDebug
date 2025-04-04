@@ -52,14 +52,14 @@ namespace Xeno.VsLinuxDebug.OptionsPages
     public bool UseCommandLineArgs { get; set; } = false;
 
     [Category(Scripts)]
-    [DisplayName("Prelaunch command")]
+    [DisplayName("Before launch command")]
     [Description(
       "Executes bash command before launching project. To add multiple commands append using '&&&&'. \n" +
       "Example: systemctl stop shell.service &&&& sudo killall -9 dotnet")]
     public string PreLaunchCommand { get; set; } = "systemctl stop shell.service && sudo killall -9 dotnet";
 
     [Category(Scripts)]
-    [DisplayName("Postlaunch command")]
+    [DisplayName("Post launch command")]
     [Description(
       "Executes bash command after launching project. To add multiple commands append using '&&&&'. \n" +
       "Example: sleep 10 &&&& systemctl start shell.service")]
