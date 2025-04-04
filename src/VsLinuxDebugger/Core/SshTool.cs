@@ -153,7 +153,6 @@ namespace VsLinuxDebugger.Core
       ////  await BashAsync($"rm -rf {_launch.RemoteDeployProjectFolder}/{allFilesAndFolders}"); // "~/LinuxDbg/MyProg/{*,.*}"
     }
 
-
     /// <summary>Executes user's command before launching project</summary>
     public async Task ExecUserPreLaunchCommandAsync(string command)
     {

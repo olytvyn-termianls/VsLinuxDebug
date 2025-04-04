@@ -79,12 +79,13 @@ namespace VsLinuxDebugger.Core
           var vsDbgFolder = LinuxPath.Combine(_options.RemoteVsDbgBasePath, Constants.VS2022);
 
           await ssh.TryInstallVsDbgAsync(vsDbgFolder);
-          await ssh.MakeDeploymentFolderAsync(_options.RemoteDeployBasePath);
+          await ssh.MakeDeploymentFolderAsync(_launchBuilder.RemoteDeployProjectFolder);
           await ssh.CleanFolderAsync(_launchBuilder.RemoteDeployProjectFolder);
           await ssh.ExecUserPreLaunchCommandAsync(_options.PreLaunchCommand);
 
           if (buildOptions.HasFlag(BuildOptions.Deploy))
           {
+            
             await ssh.UploadFilesAsync(_launchBuilder.OutputDirFullPath, _launchBuilder.RemoteDeployProjectFolder);
           }
           ////else if (buildOptions.HasFlag(BuildOptions.Publish))

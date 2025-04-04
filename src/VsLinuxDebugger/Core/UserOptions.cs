@@ -16,7 +16,8 @@
 
     public bool RemoteDebugDisplayGui { get; set; }
     public string RemoteDebugDisplayNumber { get; set; }
-    public string RemoteDeployBasePath { get; set; }
+    public string RemoteDeployDebugBasePath { get; set; }
+    public string RemoteDeployReleaseBasePath { get; set; }
     public bool RemoteDebugAppendProjName { get; set; }
 
     /// <summary>Full path to `dotnet` executable.</summary>

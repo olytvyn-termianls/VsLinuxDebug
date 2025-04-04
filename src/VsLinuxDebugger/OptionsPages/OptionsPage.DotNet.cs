@@ -18,10 +18,15 @@ namespace Xeno.VsLinuxDebug.OptionsPages
     public bool RemoteDebugDisplayGui { get; set; } = false;
 
     [Category(RemoteDebugger)]
-    [DisplayName("Upload to folder")]
+    [DisplayName("Upload Debug build to folder")]
     [Description("Folder for to transfer files to. For HOME folder, use './VSLinuxDbg' and not '~/VSLinuxDbg'")]
-    public string RemoteDeployBasePath { get; set; } = $"./VSLinuxDbg"; // "LinuxDbg"
+    public string RemoteDeployDebugBasePath { get; set; } = $"./VSLinuxDbg"; // "LinuxDbg"
 
+    [Category(RemoteDebugger)]
+    [DisplayName("Upload Release build to folder")]
+    [Description("Folder for to transfer files to. For HOME folder, use './VSLinuxRls' and not '~/VSLinuxRls'")]
+    public string RemoteDeployReleaseBasePath { get; set; } = $"./VSLinuxRls";
+    
     [Category(RemoteDebugger)]
     [DisplayName("Append project name to upload path")]
     [Description("Append project name to upload path")]

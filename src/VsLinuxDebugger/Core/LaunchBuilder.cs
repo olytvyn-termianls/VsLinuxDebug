@@ -4,6 +4,7 @@ using System.Text.Json;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using VsLinuxDebugger.Core.Remote;
 
 namespace VsLinuxDebugger.Core
@@ -58,7 +59,25 @@ namespace VsLinuxDebugger.Core
     public string RemoteDeployAssemblyFilePath => LinuxPath.Combine(RemoteDeployProjectFolder, $"{AssemblyName}.dll");
 
     /// <summary>Folder of our remote assembly. (i.e. `/home/USER/VLSDbg/Proj`)</summary>
-    public string RemoteDeployProjectFolder => _opts.RemoteDebugAppendProjName ? LinuxPath.Combine(_opts.RemoteDeployBasePath, ProjectName) : _opts.RemoteDeployBasePath;
+    public string RemoteDeployProjectFolder
+    {
+      get
+      {
+        string deployPath = _opts.RemoteDeployDebugBasePath;
+
+        if (ProjectConfigName.Equals("Release"))
+        {
+          deployPath = _opts.RemoteDeployReleaseBasePath;
+        }
+        
+        if (_opts.RemoteDebugAppendProjName)
+        {
+          LinuxPath.Combine(deployPath, ProjectName);
+        }
+
+        return deployPath;
+      }
+    }
 
     public string RemoteDotNetPath => _opts.RemoteDotNetPath;
 
