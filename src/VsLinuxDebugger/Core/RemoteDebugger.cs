@@ -81,6 +81,7 @@ namespace VsLinuxDebugger.Core
           await ssh.TryInstallVsDbgAsync(vsDbgFolder);
           await ssh.MakeDeploymentFolderAsync(_options.RemoteDeployBasePath);
           await ssh.CleanFolderAsync(_launchBuilder.RemoteDeployProjectFolder);
+          await ssh.ExecUserPreLaunchCommandAsync(_options.PreLaunchCommand);
 
           if (buildOptions.HasFlag(BuildOptions.Deploy))
           {
@@ -113,6 +114,8 @@ namespace VsLinuxDebugger.Core
           {
             BuildDebugAttacher();
           }
+
+          await ssh.ExecUserPostLaunchCommandAsync(_options.PostLaunchCommand);
         }
 
         BuildCleanup();

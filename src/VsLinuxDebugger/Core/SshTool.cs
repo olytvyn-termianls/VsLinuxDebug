@@ -153,6 +153,35 @@ namespace VsLinuxDebugger.Core
       ////  await BashAsync($"rm -rf {_launch.RemoteDeployProjectFolder}/{allFilesAndFolders}"); // "~/LinuxDbg/MyProg/{*,.*}"
     }
 
+
+    /// <summary>Executes user's command before launching project</summary>
+    public async Task ExecUserPreLaunchCommandAsync(string command)
+    {
+      if (!string.IsNullOrEmpty(command) && !string.IsNullOrWhiteSpace(command))
+      {
+        Logger.Output($"Executing PreLaunch Command '{command}'");
+        await BashAsync(command);
+      }
+      else
+      {
+        Logger.Output("PreLaunch Command is empty. Skipping this step...");
+      }
+    }
+
+    /// <summary>Executes user's command after launching project</summary>
+    public async Task ExecUserPostLaunchCommandAsync(string command)
+    {
+      if (!string.IsNullOrEmpty(command) && !string.IsNullOrWhiteSpace(command))
+      {
+        Logger.Output($"Executing PostLaunch Command '{command}'");
+        await BashAsync(command);
+      }
+      else
+      {
+        Logger.Output("PostLaunch Command is empty. Skipping this step...");
+      }
+    }
+
     public async Task<bool> ConnectAsync()
     {
       PrivateKeyFile keyFile = null;

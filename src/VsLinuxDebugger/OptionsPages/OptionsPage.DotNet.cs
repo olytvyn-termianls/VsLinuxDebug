@@ -8,6 +8,7 @@ namespace Xeno.VsLinuxDebug.OptionsPages
   {
     private const string Experimental = "Warning Experimental";
     private const string RemoteDebugger = "Remote Debugger";
+    private const string Scripts = "Pre/Post launch scripts";
 
     [Category(Experimental)]
     [DisplayName("Debug Display GUI")]
@@ -44,5 +45,19 @@ namespace Xeno.VsLinuxDebug.OptionsPages
       "Apply command line arguments from Visual Studio Project Settings. " +
       "(Experimental : Project Settings -> Debugging -> Command Line Arguments)")]
     public bool UseCommandLineArgs { get; set; } = false;
+
+    [Category(Scripts)]
+    [DisplayName("Prelaunch command")]
+    [Description(
+      "Executes bash command before launching project. To add multiple commands append using '&&&&'. \n" +
+      "Example: systemctl stop shell.service &&&& sudo killall -9 dotnet")]
+    public string PreLaunchCommand { get; set; } = "systemctl stop shell.service && sudo killall -9 dotnet";
+
+    [Category(Scripts)]
+    [DisplayName("Postlaunch command")]
+    [Description(
+      "Executes bash command after launching project. To add multiple commands append using '&&&&'. \n" +
+      "Example: sleep 10 &&&& systemctl start shell.service")]
+    public string PostLaunchCommand { get; set; } = "sleep 10 && systemctl start shell.service";
   }
 }

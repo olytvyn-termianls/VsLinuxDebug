@@ -170,6 +170,9 @@ namespace VsLinuxDebugger
         LocalPLinkPath = VsixPackage.VsixOptions.PLinkPath,
         LocalSwitchLinuxDbgOutput = VsixPackage.VsixOptions.SwitchLinuxDbgOutput,
 
+        PreLaunchCommand = VsixPackage.VsixOptions.PreLaunchCommand,
+        PostLaunchCommand = VsixPackage.VsixOptions.PostLaunchCommand,
+
         RemoteDebugDisplayGui = VsixPackage.VsixOptions.RemoteDebugDisplayGui,
         RemoteDebugDisplayNumber = VsixPackage.VsixOptions.RemoteDebugDisplayNumber,
         RemoteDeployBasePath = VsixPackage.VsixOptions.RemoteDeployBasePath,
