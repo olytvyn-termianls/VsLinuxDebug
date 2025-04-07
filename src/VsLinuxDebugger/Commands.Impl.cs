@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Internal.VisualStudio.PlatformUI;
+using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell.Interop.COMAsyncServiceProvider;
+using Microsoft.VisualStudio.VCProjectEngine;
 using VsLinuxDebugger.Core;
 using Xeno.VsLinuxDebug.OptionsPages;
+using VSMonoDebugger.Views;
 
 namespace VsLinuxDebugger
 {
@@ -64,6 +69,8 @@ namespace VsLinuxDebugger
 
       AddMenuItem(cmd, CommandIds.CmdShowLog, SetMenuTextAndVisibility, OnShowLog);
       AddMenuItem(cmd, CommandIds.CmdShowSettings, SetMenuTextAndVisibility, OnShowSettingsAsync);
+
+      //AddMenuItem(commandService, PackageIds.cmdOpenDebugSettings, null, OpenSSHDebugConfigDlg);
     }
 
     private async Task<bool> ExecuteBuildAsync(BuildOptions buildOptions)
@@ -120,15 +127,40 @@ namespace VsLinuxDebugger
       MessageBox("Not implemented");
     }
 
+    //private async void OnShowSettingsAsync(object sender, EventArgs e)
+    //{
+    //  // Not implemented yet
+    //  if (sender is OleMenuCommand cmd)
+    //    cmd.Enabled = false;
+
+    //  await Task.Yield();
+
+    //  Instance._package.ShowOptionPage(typeof(OptionsPage));
+    //}
+
+    /// <summary>
+    /// VS Package that provides this command, not null.
+    /// </summary>
+
     private async void OnShowSettingsAsync(object sender, EventArgs e)
     {
-      // Not implemented yet
-      if (sender is OleMenuCommand cmd)
-        cmd.Enabled = false;
+      await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-      await Task.Yield();
+      // https://docs.microsoft.com/en-us/visualstudio/extensibility/creating-and-managing-modal-dialog-boxes?view=vs-2019
+      var vsUIShell = await _package.GetServiceAsync(typeof(SVsUIShell)) as IVsUIShell;
+      Assumes.Present(vsUIShell);
 
-      Instance._package.ShowOptionPage(typeof(OptionsPage));
+      var dlg = new DebugSettings(vsUIShell);
+      vsUIShell.GetDialogOwnerHwnd(out IntPtr vsParentHwnd);
+      vsUIShell.EnableModeless(0);
+      try
+      {
+        WindowHelper.ShowModal(dlg, vsParentHwnd);
+      }
+      finally
+      {
+        vsUIShell.EnableModeless(1);
+      }
     }
 
     private void SetMenuTextAndVisibility(object sender, EventArgs e)
