@@ -20,6 +20,8 @@
     public string RemoteDeployReleaseBasePath { get; set; }
     public bool RemoteDebugAppendProjName { get; set; }
 
+    public string LocalVsDbgRootPath { get; set; }
+    
     /// <summary>Full path to `dotnet` executable.</summary>
     public string RemoteDotNetPath { get; set; }
     /// <summary>Base path to VSDBG (i.e. `~/.vsdbg`).</summary>

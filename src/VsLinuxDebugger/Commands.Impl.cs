@@ -211,6 +211,7 @@ namespace VsLinuxDebugger
         RemoteDeployReleaseBasePath = VsixPackage.VsixOptions.RemoteDeployReleaseBasePath,
         RemoteDebugAppendProjName = VsixPackage.VsixOptions.RemoteDebugAppendProjName,
         RemoteDotNetPath = VsixPackage.VsixOptions.RemoteDotNetPath,
+        LocalVsDbgRootPath = VsixPackage.VsixOptions.LocalVsDbgRootPath,
         RemoteVsDbgBasePath = VsixPackage.VsixOptions.RemoteVsDbgRootPath,
 
         UseCommandLineArgs = VsixPackage.VsixOptions.UseCommandLineArgs,

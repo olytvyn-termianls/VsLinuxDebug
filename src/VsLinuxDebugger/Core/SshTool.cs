@@ -13,7 +13,7 @@ namespace VsLinuxDebugger.Core
 {
   public class SshTool : IDisposable
   {
-    private readonly string _tarGzFileName = "vsldBuildContents.tar.gz";
+    private readonly string _tarGzFileName = "vsldUploadContents.tar.gz";
 
     private SshConnectionInfo _info;
     private bool _isConnected = false;
@@ -282,25 +282,18 @@ namespace VsLinuxDebugger.Core
     /// <summary>
     /// Install cURL and VS Debugger if it doesn't exist already.
     /// </summary>
-    public async Task TryInstallVsDbgAsync(string vsDbgFolder)
+    public async Task TryInstallVsDbgAsync(string sourceFolder, string targetFolder)
     {
-      string arch = (await BashAsync("uname -m")).Trim('\n');
-
-      var curlExists = await BashAsync("which curl ; echo $?");
-      if (curlExists.Equals("1\n"))
+      var folderExists = await BashAsync($"[ -d {targetFolder} ] && echo 'exists' || echo 'does not exist'");
+      if (folderExists.Contains("does not exist"))
       {
-        // TODO: Need to pass in password.
-        var curlInstall = BashStream("sudo apt install curl");
-        Logger.Output($"BASH-RET: {curlInstall}");
+        Logger.Output($"Directory '{targetFolder}' not found! Creating '{targetFolder}' and uploading files...");
+        await UploadFilesAsync(sourceFolder, targetFolder);
       }
-
-      //// OLD:  var ret = Bash("[ -d ~/.vsdbg ] || curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l ~/.vsdbg");
-      //// v1.9: var ret = await BashAsync($"[ -d {_opts.RemoteVsDbgBasePath} ] || curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l {_opts.RemoteVsDbgBasePath}");
-
-      // If output path does not exist, execute the following commands "curl .. | bash .."
-      // 2022-10-27: Added '-k' to allow for Microsoft's self-signed certificate.
-      var ret = await BashAsync($"[ -d {vsDbgFolder} ] || curl -ksSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l {vsDbgFolder}");
-      Logger.Output($"Returned: {ret}");
+      else
+      {
+        Logger.Output($"Directory '{targetFolder}' found!");
+      }
     }
 
     public void UploadFile(Stream input, string path)
@@ -334,7 +327,12 @@ namespace VsLinuxDebugger.Core
 
         var srcDirInfo = new DirectoryInfo(sourceFolder);
         if (!srcDirInfo.Exists)
-          throw new DirectoryNotFoundException($"Directory '{sourceFolder}' not found!");
+        {
+          string msg = $"Directory '{sourceFolder}' not found! Upload would not be completed!";
+          Logger.Output(msg);
+          throw new DirectoryNotFoundException(msg);
+        }
+         
 
         await BashAsync($@"mkdir -p {targetFolder}");
 

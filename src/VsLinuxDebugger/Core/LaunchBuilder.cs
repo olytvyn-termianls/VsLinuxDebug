@@ -79,6 +79,8 @@ namespace VsLinuxDebugger.Core
       }
     }
 
+    public string LocalVsDbgRootPath => _opts.LocalVsDbgRootPath;
+
     public string RemoteDotNetPath => _opts.RemoteDotNetPath;
 
     public string RemoteHostIp => _opts.HostIp;

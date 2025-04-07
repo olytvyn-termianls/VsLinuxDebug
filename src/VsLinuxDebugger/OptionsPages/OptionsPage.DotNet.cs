@@ -38,11 +38,18 @@ namespace Xeno.VsLinuxDebug.OptionsPages
     public string RemoteDotNetPath { get; set; } = Constants.DefaultDotNetPath;
 
     [Category(RemoteDebugger)]
-    [DisplayName("Visual Studio Debugger Path")]
+    [DisplayName("Visual Studio Remote Debugger Path")]
     [Description(
       "Root folder of Visual Studio Debugger. " +
       "(Samples: `~/.vs-debugger/`, `~/.vsdbg`)")]
     public string RemoteVsDbgRootPath { get; set; } = Constants.DefaultVsdbgBasePath;
+
+    [Category(RemoteDebugger)]
+    [DisplayName("Visual Studio Local Debugger Path")]
+    [Description(
+      "Root folder of Visual Studio Debugger. " +
+      "(Samples: `~/.vs-debugger/`, `~/.vsdbg`)")]
+    public string LocalVsDbgRootPath { get; set; } = "C:\\works\\vs-debugger\\";
 
     [Category(Experimental)]
     [DisplayName("Use Command Line Arguments")]
