@@ -7,8 +7,9 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.Interop.COMAsyncServiceProvider;
 using Microsoft.VisualStudio.VCProjectEngine;
 using VsLinuxDebugger.Core;
-using Xeno.VsLinuxDebug.OptionsPages;
-using VSMonoDebugger.Views;
+//using Xeno.VsLinuxDebug.OptionsPages;
+using VsLinuxDebugger.Core;
+using System.Runtime;
 
 namespace VsLinuxDebugger
 {
@@ -79,7 +80,10 @@ namespace VsLinuxDebugger
 
       var success = true;
 
-      var options = ToUserOptions();
+      //var options = ToUserOptions();
+      var allDeviceSettings = UserSettingsManager.Instance.Load();
+      var options = allDeviceSettings.CurrentUserSettings;
+
       using (var dbg = new RemoteDebugger(options))
       {
         if (!dbg.IsProjectValid())
@@ -188,43 +192,43 @@ namespace VsLinuxDebugger
       }
     }
 
-    private UserOptions ToUserOptions()
-    {
-      DebuggerPackage VsixPackage = _package as DebuggerPackage;
+    //private UserOptions ToUserOptions()
+    //{
+    //  DebuggerPackage VsixPackage = _package as DebuggerPackage;
 
-      return new UserOptions
-      {
-        DeleteLaunchJsonAfterBuild = VsixPackage.VsixOptions.DeleteLaunchJsonAfterBuild,
+    //  return new UserOptions
+    //  {
+    //    DeleteLaunchJsonAfterBuild = VsixPackage.VsixOptions.DeleteLaunchJsonAfterBuild,
 
-        HostIp = VsixPackage.VsixOptions.HostIp,
-        HostPort = VsixPackage.VsixOptions.HostPort,
+    //    HostIp = VsixPackage.VsixOptions.HostIp,
+    //    HostPort = VsixPackage.VsixOptions.HostPort,
 
-        LocalPLinkPath = VsixPackage.VsixOptions.PLinkPath,
-        LocalSwitchLinuxDbgOutput = VsixPackage.VsixOptions.SwitchLinuxDbgOutput,
+    //    LocalPLinkPath = VsixPackage.VsixOptions.PLinkPath,
+    //    LocalSwitchLinuxDbgOutput = VsixPackage.VsixOptions.SwitchLinuxDbgOutput,
 
-        PreLaunchCommand = VsixPackage.VsixOptions.PreLaunchCommand,
-        PostLaunchCommand = VsixPackage.VsixOptions.PostLaunchCommand,
+    //    PreLaunchCommand = VsixPackage.VsixOptions.PreLaunchCommand,
+    //    PostLaunchCommand = VsixPackage.VsixOptions.PostLaunchCommand,
 
-        RemoteDebugDisplayGui = VsixPackage.VsixOptions.RemoteDebugDisplayGui,
-        RemoteDebugDisplayNumber = VsixPackage.VsixOptions.RemoteDebugDisplayNumber,
-        RemoteDeployDebugBasePath = VsixPackage.VsixOptions.RemoteDeployDebugBasePath,
-        RemoteDeployReleaseBasePath = VsixPackage.VsixOptions.RemoteDeployReleaseBasePath,
-        RemoteDebugAppendProjName = VsixPackage.VsixOptions.RemoteDebugAppendProjName,
-        RemoteDotNetPath = VsixPackage.VsixOptions.RemoteDotNetPath,
-        LocalVsDbgRootPath = VsixPackage.VsixOptions.LocalVsDbgRootPath,
-        RemoteVsDbgBasePath = VsixPackage.VsixOptions.RemoteVsDbgRootPath,
+    //    //RemoteDebugDisplayGui = VsixPackage.VsixOptions.RemoteDebugDisplayGui,
+    //    //RemoteDebugDisplayNumber = VsixPackage.VsixOptions.RemoteDebugDisplayNumber,
+    //    RemoteDeployDebugBasePath = VsixPackage.VsixOptions.RemoteDeployDebugBasePath,
+    //    RemoteDeployReleaseBasePath = VsixPackage.VsixOptions.RemoteDeployReleaseBasePath,
+    //    RemoteDebugAppendProjName = VsixPackage.VsixOptions.RemoteDebugAppendProjName,
+    //    RemoteDotNetPath = VsixPackage.VsixOptions.RemoteDotNetPath,
+    //    LocalVsDbgRootPath = VsixPackage.VsixOptions.LocalVsDbgRootPath,
+    //    RemoteVsDbgBasePath = VsixPackage.VsixOptions.RemoteVsDbgRootPath,
 
-        UseCommandLineArgs = VsixPackage.VsixOptions.UseCommandLineArgs,
-        //// UsePublish = Settings.UsePublish,
+    //    //UseCommandLineArgs = VsixPackage.VsixOptions.UseCommandLineArgs,
+    //    //// UsePublish = Settings.UsePublish,
 
-        UserPrivateKeyEnabled = VsixPackage.VsixOptions.UserPrivateKeyEnabled,
-        UserPrivateKeyPath = VsixPackage.VsixOptions.UserPrivateKeyPath,
-        UserPrivateKeyPassword = VsixPackage.VsixOptions.UserPrivateKeyPassword,
-        UserName = VsixPackage.VsixOptions.UserName,
-        UserPass = VsixPackage.VsixOptions.UserPass,
-        UserGroupName = VsixPackage.VsixOptions.UserGroupName,
-        UseSSHExeEnabled = VsixPackage.VsixOptions.UseSSHExeEnabled
-      };
-    }
+    //    UserPrivateKeyEnabled = VsixPackage.VsixOptions.UserPrivateKeyEnabled,
+    //    UserPrivateKeyPath = VsixPackage.VsixOptions.UserPrivateKeyPath,
+    //    UserPrivateKeyPassword = VsixPackage.VsixOptions.UserPrivateKeyPassword,
+    //    UserName = VsixPackage.VsixOptions.UserName,
+    //    UserPass = VsixPackage.VsixOptions.UserPass,
+    //    UserGroupName = VsixPackage.VsixOptions.UserGroupName,
+    //    UseSSHExeEnabled = VsixPackage.VsixOptions.UseSSHExeEnabled
+    //  };
+    //}
   }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace VSMonoDebugger.Views
+namespace VsLinuxDebugger.Core
 {
     /// <summary>
     ///     Interaktionslogik für DebugOverSSH.xaml
@@ -37,27 +37,27 @@ namespace VSMonoDebugger.Views
             DialogResult = false;
         }
 
-        private void SshPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel?.SettingsContainer?.CurrentUserSettings != null)
-            {
-                ViewModel.SettingsContainer.CurrentUserSettings.SSHPassword = SshPasswordBox.Password;
-            }
-        }
+        //private void SshPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        //{
+        //    if (ViewModel?.SettingsContainer?.CurrentUserSettings != null)
+        //    {
+        //        ViewModel.SettingsContainer.CurrentUserSettings.UserPass = SshPasswordBox.Password;
+        //    }
+        //}
 
-        private void DeviceConnections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (ViewModel?.SettingsContainer?.CurrentUserSettings?.SSHPassword != null)
-            {
-                SshPasswordBox.Password = ViewModel?.SettingsContainer?.CurrentUserSettings?.SSHPassword;
-            }
-        }
+        //private void DeviceConnections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        //{
+        //    if (ViewModel?.SettingsContainer?.CurrentUserSettings?.UserPass != null)
+        //    {
+        //        SshPasswordBox.Password = ViewModel?.SettingsContainer?.CurrentUserSettings?.UserPass;
+        //    }
+        //}
 
         private void Add(object sender, RoutedEventArgs e)
         {
             if (ViewModel != null)
             {
-                var newUserSettings = new Settings.UserSettings();
+                var newUserSettings = new VsLinuxDebugger.Core.UserOptions();
                 ViewModel.SettingsContainer.DeviceConnections.Add(newUserSettings);
                 ViewModel.SettingsContainer.SelectedId = newUserSettings.Id;
             }
@@ -73,11 +73,6 @@ namespace VSMonoDebugger.Views
             }
         }
 
-        private void RedirectOutputOption_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void SetDefaultPreDebugScript(object sender, RoutedEventArgs e)
         {
             ViewModel?.SettingsContainer?.CurrentUserSettings?.SetDefaultPreDebugScript();
@@ -91,7 +86,7 @@ namespace VSMonoDebugger.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            var currentFilename = ViewModel?.SettingsContainer?.CurrentUserSettings?.SSHPrivateKeyFile;
+            var currentFilename = ViewModel?.SettingsContainer?.CurrentUserSettings?.UserPrivateKeyPath;
             if (!string.IsNullOrWhiteSpace(currentFilename))
             {
                 try
@@ -116,7 +111,7 @@ namespace VSMonoDebugger.Views
             {
                 if (ViewModel?.SettingsContainer?.CurrentUserSettings != null)
                 {
-                    ViewModel.SettingsContainer.CurrentUserSettings.SSHPrivateKeyFile = openFileDialog.FileName;
+                    ViewModel.SettingsContainer.CurrentUserSettings.UserPrivateKeyPath = openFileDialog.FileName;
                 }
             }
         }
@@ -142,11 +137,6 @@ namespace VSMonoDebugger.Views
             {
                 ViewModel?.LoadFromDebugSettings(dialog.FileName);
             }            
-        }
-
-        private void SetDefaultLaunchJsonContent(object sender, RoutedEventArgs e)
-        {
-            ViewModel?.SettingsContainer?.CurrentUserSettings?.SetDefaultLaunchJsonContent();
         }
     }
 }

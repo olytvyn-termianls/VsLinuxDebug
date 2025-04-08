@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using VSMonoDebugger.Settings;
+using VsLinuxDebugger.Core;
 
-namespace VSMonoDebugger.Views
+namespace VsLinuxDebugger.Core
 {
     public class DebugSettingsModel : BaseViewModel
     {
         private UserSettingsContainer _settingsContainer;
 
         public DebugSettingsModel()
-        {
-            _allRedirectOutputOptions = new ObservableCollection<RedirectOutputOptions>(Enum.GetValues(typeof(RedirectOutputOptions)).Cast<RedirectOutputOptions>());
+        { 
             _settingsContainer = UserSettingsManager.Instance.Load();
         }
 
@@ -39,20 +38,6 @@ namespace VSMonoDebugger.Views
             set
             {
                 _settingsContainer = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private ObservableCollection<RedirectOutputOptions> _allRedirectOutputOptions = new ObservableCollection<RedirectOutputOptions>();
-        public ObservableCollection<RedirectOutputOptions> AllRedirectOutputOptions
-        {
-            get
-            {
-                return _allRedirectOutputOptions;
-            }
-            set
-            {
-                _allRedirectOutputOptions = value;
                 NotifyPropertyChanged();
             }
         }

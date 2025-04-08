@@ -7,7 +7,7 @@
 
     public const string DefaultDotNetPath = "dotnet";
     public const string VS2022 = "vs2022";
-    public const string DefaultVsdbgBasePath = "~/.vs-debugger";
+    public const string DefaultVsdbgBasePath = "/root/.vs-debugger";
     public const string LaunchJson = "launch.json";
 
     public const string PackageTarGz = "vsldBuildContents.tar.gz";

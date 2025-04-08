@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace VSMonoDebugger.Views
+namespace VsLinuxDebugger.Core
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using VsLinuxDebugger.Core;
 using Task = System.Threading.Tasks.Task;
 
 namespace VsLinuxDebugger
@@ -45,6 +46,7 @@ namespace VsLinuxDebugger
     /// <param name="package">Owner package, not null.</param>
     public static async Task InitializeAsync(AsyncPackage package)
     {
+      UserSettingsManager.Initialize(package);
       // Switch to the main thread - the call to AddCommand in SshDebugCommand's constructor requires
       // the UI thread.
       await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);

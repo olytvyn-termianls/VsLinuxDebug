@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
-using VSMonoDebugger.Settings;
-using Xeno.VsLinuxDebug.OptionsPages;
+//using VsLinuxDebugger.Core;
+//using Xeno.VsLinuxDebug.OptionsPages;
 using Task = System.Threading.Tasks.Task;
 
 namespace VsLinuxDebugger
@@ -26,13 +26,13 @@ namespace VsLinuxDebugger
   [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
   [Guid(DebuggerPackage.PackageGuidString)]
   [ProvideMenuResource("Menus.ctmenu", 1)]
-  [ProvideOptionPage(typeof(OptionsPage), "Linux Debugger", "General", 0, 0, true)]
+  //[ProvideOptionPage(typeof(OptionsPage), "Linux Debugger", "General", 0, 0, true)]
   public sealed partial class DebuggerPackage : AsyncPackage
   {
     /// <summary>Package GUID string.</summary>
     public const string PackageGuidString = "19f87f23-7a2c-4279-ac7c-c9267776bbf9";
 
-    public OptionsPage VsixOptions => (OptionsPage)GetDialogPage(typeof(OptionsPage));
+    //public OptionsPage VsixOptions => (OptionsPage)GetDialogPage(typeof(OptionsPage));
 
     /// <summary>
     /// Initialization of the package; this method is called right after the package is sited, so this is the place
@@ -46,10 +46,10 @@ namespace VsLinuxDebugger
       // When initialized asynchronously, the current thread may be a background thread at this point.
       // Do any initialization that requires the UI thread after switching to the UI thread.
       await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-      UserSettingsManager.Initialize(this);
       await Commands.InitializeAsync(this);
 
-      Logger.Init(this, OutputWindowType.Custom, VsixOptions.SwitchLinuxDbgOutput);
+      //Logger.Init(this, OutputWindowType.Custom, VsixOptions.SwitchLinuxDbgOutput);
+      Logger.Init(this, OutputWindowType.Custom, true);
       Logger.Output("InitializeAsync");
     }
   }

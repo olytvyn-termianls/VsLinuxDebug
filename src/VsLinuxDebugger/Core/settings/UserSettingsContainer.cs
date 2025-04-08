@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Linq;
-using VSMonoDebugger.Views;
+using VsLinuxDebugger.Core;
 
-namespace VSMonoDebugger.Settings
+namespace VsLinuxDebugger.Core
 {
     public class UserSettingsContainer : BaseViewModel
     {
@@ -27,9 +27,9 @@ namespace VSMonoDebugger.Settings
             }
         }
 
-        private ObservableCollection<UserSettings> _deviceConnections = new ObservableCollection<UserSettings>();
+        private ObservableCollection<UserOptions> _deviceConnections = new ObservableCollection<UserOptions>();
 
-        public ObservableCollection<UserSettings> DeviceConnections
+        public ObservableCollection<UserOptions> DeviceConnections
         {
             get
             {
@@ -44,16 +44,16 @@ namespace VSMonoDebugger.Settings
             }
         }
 
-        private UserSettings _currentUserSettings;
+        private UserOptions _currentUserSettings;
 
         [JsonIgnore]
-        public UserSettings CurrentUserSettings
+        public UserOptions CurrentUserSettings
         {
             get
             {
                 if (_currentUserSettings == null || _currentUserSettings.Id != SelectedId)
                 {
-                    _currentUserSettings = DeviceConnections?.Where(x => x.Id == SelectedId).FirstOrDefault() ?? new UserSettings();
+                    _currentUserSettings = DeviceConnections?.Where(x => x.Id == SelectedId).FirstOrDefault() ?? new UserOptions();
                 }
 
                 return _currentUserSettings;
@@ -75,11 +75,11 @@ namespace VSMonoDebugger.Settings
 
         private static void Validate(UserSettingsContainer instance)
         {
-            instance.DeviceConnections = instance.DeviceConnections ?? new ObservableCollection<UserSettings>();
+            instance.DeviceConnections = instance.DeviceConnections ?? new ObservableCollection<UserOptions>();
 
             if (instance.DeviceConnections == null || instance.DeviceConnections.Count == 0)
             {
-                instance.DeviceConnections.Add(new UserSettings());
+                instance.DeviceConnections.Add(new UserOptions());
             }
 
             if (string.IsNullOrWhiteSpace(instance.SelectedId) || !instance.DeviceConnections.Any(x => x.Id == instance.SelectedId))
@@ -89,7 +89,7 @@ namespace VSMonoDebugger.Settings
 
             foreach (var deviceConnection in instance.DeviceConnections)
             {
-                UserSettings.Validate(deviceConnection);
+                //UserOptions.Validate(deviceConnection);
             }
         }
     }

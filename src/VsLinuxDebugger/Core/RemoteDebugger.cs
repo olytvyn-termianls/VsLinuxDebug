@@ -253,7 +253,7 @@ namespace VsLinuxDebugger.Core
       {
         Host = _options.HostIp,
         Port = _options.HostPort,
-        UserGroup = _options.UserGroupName,
+        //UserGroup = _options.UserGroupName,
         UserName = _options.UserName,
         UserPass = _options.UserPass,
         PrivateKeyEnabled = _options.UserPrivateKeyEnabled,

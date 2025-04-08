@@ -58,30 +58,22 @@
     <Compile Include="Core\Remote\Launch.cs" />
     <Compile Include="Core\Remote\PipeTransport.cs" />
     <Compile Include="Core\SshTool.cs" />
-    <Compile Include="Core\UserOptions.cs" />
+    <Compile Include="Core\settings\UserOptions.cs" />
     <Compile Include="Extensions\JsonExtension.cs" />
     <Compile Include="Extensions\ProcessExtension.cs" />
     <Compile Include="Extensions\SolutionExtension.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="OptionsPages\OptionsPage.Ssh.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="OptionsPages\OptionsPage.Local.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="OptionsPages\OptionsPage.DotNet.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="OptionsPages\OptionsPage.Ssh.cs" />
+    <Compile Include="OptionsPages\OptionsPage.Local.cs" />
+    <Compile Include="OptionsPages\OptionsPage.DotNet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="DebuggerPackage.cs" />
-    <Compile Include="settings\DebugOptions.cs" />
-    <Compile Include="settings\UserSettings.cs" />
-    <Compile Include="settings\UserSettingsContainer.cs" />
-    <Compile Include="settings\UserSettingsManager.cs" />
-    <Compile Include="views\BaseViewModel.cs" />
-    <Compile Include="views\DebugSettings.cs" />
-    <Compile Include="views\DebugSettings.xaml.cs">
+    <Compile Include="Core\settings\UserSettingsContainer.cs" />
+    <Compile Include="Core\settings\UserSettingsManager.cs" />
+    <Compile Include="Core\views\BaseViewModel.cs" />
+    <Compile Include="Core\views\DebugSettings.cs" />
+    <Compile Include="Core\views\DebugSettings.xaml.cs">
       <DependentUpon>DebugSettings.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -145,7 +137,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="views\DebugSettings.xaml">
+    <Page Include="Core\views\DebugSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

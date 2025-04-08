@@ -72,7 +72,7 @@ namespace VsLinuxDebugger.Core
         
         if (_opts.RemoteDebugAppendProjName)
         {
-          LinuxPath.Combine(deployPath, ProjectName);
+          deployPath = LinuxPath.Combine(deployPath, ProjectName);
         }
 
         return deployPath;
@@ -208,12 +208,12 @@ namespace VsLinuxDebugger.Core
       string adapterArgs = "";
       string displayAdapter = "";
 
-      if(_opts.RemoteDebugDisplayGui)
-      {
-        displayAdapter = !string.IsNullOrWhiteSpace(_opts.RemoteDebugDisplayNumber) ?
-          $"DISPLAY={_opts.RemoteDebugDisplayNumber}" :
-          "DISPLAY=:0";
-      }
+      //if(_opts.RemoteDebugDisplayGui)
+      //{
+      //  displayAdapter = !string.IsNullOrWhiteSpace(_opts.RemoteDebugDisplayNumber) ?
+      //    $"DISPLAY={_opts.RemoteDebugDisplayNumber}" :
+      //    "DISPLAY=:0";
+      //}
 
       if (_opts.UseSSHExeEnabled)
       {
@@ -222,7 +222,15 @@ namespace VsLinuxDebugger.Core
       }
       else
       {
-        adapterArgs= $"-ssh {sshPassword} {sshEndpoint} -T {displayAdapter} {_opts.RemoteVsDbgFullPath} {vsdbgLogPath}";
+        if (_opts.PlinkAutoConfirmEnabled)
+        {
+          adapterArgs = $"-ssh {sshPassword} -batch {sshEndpoint} -T {displayAdapter} {_opts.RemoteVsDbgFullPath} {vsdbgLogPath}";
+        }
+        else
+        {
+          adapterArgs = $"-ssh {sshPassword} {sshEndpoint} -T {displayAdapter} {_opts.RemoteVsDbgFullPath} {vsdbgLogPath}";
+        }
+       
       }
 
       return (adapter, adapterArgs);

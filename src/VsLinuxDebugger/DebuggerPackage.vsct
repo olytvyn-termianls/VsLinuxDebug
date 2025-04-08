@@ -89,21 +89,21 @@
         <CommandFlag>TextChanges</CommandFlag>
         <!--<CommandFlag>DefaultDisabled</CommandFlag>-->
         <Strings>
-          <ButtonText>Build, Deploy and Debug (experimental)</ButtonText>
+          <ButtonText>Build, Deploy and Debug</ButtonText>
         </Strings>
       </Button>
 
-      <Button guid="GuidLinuxDebugerMenu" id="CmdBuildDeployLaunch" priority="0x0402" type="Button">
+      <!--<Button guid="GuidLinuxDebugerMenu" id="CmdBuildDeployLaunch" priority="0x0402" type="Button">
         <Parent guid="GuidLinuxDebugerMenu" id="RemoteMainMenuGroupLevel1" />
         <Icon guid="DebugOnly_16x" id="imgDebugOnly" />
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
-        <!--<CommandFlag>DefaultDisabled</CommandFlag>-->
+        --><!--<CommandFlag>DefaultDisabled</CommandFlag>--><!--
         <Strings>
           <ButtonText>Build, Deploy and Launch (experimental)</ButtonText>
         </Strings>
-      </Button>
+      </Button>-->
 
       <!--
       Allows user to debug again without having to redeploy.

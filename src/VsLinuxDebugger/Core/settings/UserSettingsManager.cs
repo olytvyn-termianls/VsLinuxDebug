@@ -5,11 +5,11 @@ using Microsoft.VisualStudio.Shell.Settings;
 using System;
 using System.IO;
 
-namespace VSMonoDebugger.Settings
+namespace VsLinuxDebugger.Core
 {
     public class UserSettingsManager
     {
-        public readonly static string SETTINGS_STORE_NAME = "VSMonoDebugger";
+        public readonly static string SETTINGS_STORE_NAME = "VsLinuxDebuggerTest";
 
         //private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private WritableSettingsStore _settingsStore;
